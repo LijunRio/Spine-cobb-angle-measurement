@@ -10,12 +10,14 @@ img_dir = ".\img"
 img_list = os.listdir(img_dir)
 # img_list = list(map(lambda x: os.path.join(img_dir, x), img_list))
 print(img_list)
-output = ".\\test5"
+output = ".\\test"
 
 yellow = (0, 255, 255)
 red = (0, 0, 255)
 green = (0, 255, 0)
 blue = (255, 0, 0)
+name_list = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10',
+             'T11', 'T12', 'L1', 'L2', 'L3', 'L4', 'L5']
 
 
 def draw_upper_vertebra(vertebrae_information, color):
@@ -86,13 +88,8 @@ for item in tqdm(img_list):
     turning_location = []
 
     for index in range(len(rect_list)):
-        center = (int(rect_list[index][0][0]), int(rect_list[index][0][1]))
-        puttex_center_point = (int(rect_list[index][0][0]) + 50, int(rect_list[index][0][1]))
-        puttext_point_2 = (int(rect_list[index][0][0]) - 80, int(rect_list[index][0][1]))
-
-        im = cv.putText(im, str(index), center, cv.FONT_HERSHEY_SIMPLEX, 2, blue, 3)
-        im = cv.putText(im, str(round(rect_list[index][2], 2)), puttex_center_point, cv.FONT_HERSHEY_SIMPLEX, 3,
-                        green, 3)
+        center = (int(rect_list[index][0][0]-50), int(rect_list[index][0][1]))
+        im = cv.putText(im, str(name_list[index]), center, cv.FONT_HERSHEY_SIMPLEX, 2, blue, 3)
 
         # 保存椎骨顶点信息
         box = cv.boxPoints(rect_list[index])
@@ -157,7 +154,9 @@ for item in tqdm(img_list):
         max_cobb.append(cobb)
 
         # 标注出角度
-        put_point = (slope_decline[0]['center'][0] - 500, slope_decline[0]['center'][1] - 600)
+        y = int(slope_decline[end_index]['center'][1] + \
+            (slope_decline[0]['center'][1]-slope_decline[end_index]['center'][1])/2)
+        put_point = (slope_decline[0]['center'][0] - 500, y)
         im = cv.putText(im, str(round(angle, 2)), put_point, cv.FONT_HERSHEY_SIMPLEX, 4,
                         red, 4)
     else:
@@ -170,10 +169,9 @@ for item in tqdm(img_list):
         cobb = {'up_id': slope_decline[0]['index'], 'bottom_id': slope_decline[end_index]['index'], 'cobb_angle': angle}
         max_cobb.append(cobb)
 
-        put_point0 = (slope_decline[end_index]['center'][0] - 500, slope_decline[end_index]['center'][1])
-        # im = cv.putText(im, str(slope_decline[0]['index']), put_point0, cv.FONT_HERSHEY_SIMPLEX, 4,
-        #                 green, 4)
-        put_point = (slope_decline[1]['center'][0] - 500, slope_decline[1]['center'][1] - 600)
+        y = int(slope_decline[0]['center'][1] + \
+                (slope_decline[end_index]['center'][1] - slope_decline[0]['center'][1]) / 2)
+        put_point = (slope_decline[1]['center'][0] - 500, y)
         im = cv.putText(im, str(round(angle, 2)), put_point, cv.FONT_HERSHEY_SIMPLEX, 4,
                         red, 4)
 
