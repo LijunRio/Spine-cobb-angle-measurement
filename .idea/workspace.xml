@@ -2,11 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ee5b44e-6ae1-421c-adb7-44b7fd733443" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/sagittal_plane_cobb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test5.rar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/visulaize_angle.py" beforeDir="false" afterPath="$PROJECT_DIR$/coronal_plane_cobb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coronal_plane_cobb.py" beforeDir="false" afterPath="$PROJECT_DIR$/coronal_plane_cobb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sagittal_plane_cobb.py" beforeDir="false" afterPath="$PROJECT_DIR$/sagittal_plane_cobb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/003.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/003.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/007.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/007.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/008.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/008.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/012.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/012.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/014.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/014.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/019.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/019.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/023.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/023.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/024.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/024.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/027.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/027.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/029.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/029.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/037.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/037.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/043.png" beforeDir="false" afterPath="$PROJECT_DIR$/test/043.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2/0_label.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/test2/0_label.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2/1_label.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/test2/1_label.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2/2_label.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/test2/2_label.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2/3_label.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/test2/3_label.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2/4_label.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/test2/4_label.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,33 +159,33 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="237" key="GridCell.Tab.0.bottom" timestamp="1595421438049">
+    <state width="1869" height="161" key="GridCell.Tab.0.bottom" timestamp="1595474435222">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="237" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595421438049" />
-    <state width="1899" height="237" key="GridCell.Tab.0.center" timestamp="1595421438049">
+    <state width="1869" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595474435222" />
+    <state width="1869" height="161" key="GridCell.Tab.0.center" timestamp="1595474435222">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="237" key="GridCell.Tab.0.center/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595421438049" />
-    <state width="1899" height="237" key="GridCell.Tab.0.left" timestamp="1595421438049">
+    <state width="1869" height="161" key="GridCell.Tab.0.center/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595474435222" />
+    <state width="1869" height="161" key="GridCell.Tab.0.left" timestamp="1595474435222">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="237" key="GridCell.Tab.0.left/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595421438049" />
-    <state width="1899" height="237" key="GridCell.Tab.0.right" timestamp="1595421438049">
+    <state width="1869" height="161" key="GridCell.Tab.0.left/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595474435222" />
+    <state width="1869" height="161" key="GridCell.Tab.0.right" timestamp="1595474435222">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="237" key="GridCell.Tab.0.right/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595421438049" />
+    <state width="1869" height="161" key="GridCell.Tab.0.right/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595474435222" />
     <state x="-1457" y="164" key="SettingsEditor" timestamp="1595410341000">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-1457" y="164" key="SettingsEditor/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595410341000" />
-    <state x="-1268" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1595405893304">
+    <state x="-1268" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1595468167840">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1268" y="347" key="com.intellij.ide.util.TipDialog/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595405893304" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1595307817799">
+    <state x="-1268" y="347" key="com.intellij.ide.util.TipDialog/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595468167840" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1595471875086">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595307817799" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595471875086" />
   </component>
 </project>

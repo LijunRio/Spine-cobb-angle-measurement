@@ -16,14 +16,13 @@ red = (0, 0, 255)
 green = (0, 255, 0)
 blue = (255, 0, 0)
 font = cv.FONT_HERSHEY_COMPLEX
-name_list = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10',
-             'T11', 'T12', 'L1', 'L2', 'L3', 'L4']
+name_list = ['L5', 'L4', 'L3', 'L2', 'L1', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1',
+             'C7', 'C6', 'C5', 'C4', 'C3', 'C2', 'C1']
 id_t2 = 8
 id_t5 = 11
 id_t10 = 16
 id_l2 = 20
 
-print(len(name_list))
 for item in tqdm(img_list):
     file = os.path.join(img_dir, item)
     output_file = os.path.join(output, item)
@@ -32,14 +31,16 @@ for item in tqdm(img_list):
     imgray = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
     ret, thresh = cv.threshold(imgray, 100, 255, 0)
     contours, hierarchy = cv.findContours(thresh, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-    # 椎骨rect信息列表，y值从小到大
+
+    # 筛选出真正的椎骨
+    # 面积过小的不要，最后一个不要
     rect_list = []
     final_contour_info = []
     final_contour = []
     for index in range(len(contours)):
         contour = contours[index]
         area = cv.contourArea(contour)
-        if area > 2000:
+        if 2000 < area < 40000:
             # print(area)
             M = cv.moments(contour)
             cX = int(M["m10"] / M["m00"])
@@ -47,62 +48,70 @@ for item in tqdm(img_list):
             center = (cX, cY)
             contour_info = {'center': center, 'contour': contour}
             final_contour_info.append(contour_info)
-            final_contour.append(contour)
-    cv.drawContours(im, final_contour, -1, green, 5)
-    # print(len(final_contour))
 
+    # 倒序所有轮廓，并去除最下面的轮廓
     sort_contours = final_contour_info.copy()
-    sort_contours.sort(key=lambda x: x['center'][1])
-    print(len(sort_contours))
+    sort_contours.sort(key=lambda x: x['center'][1], reverse=True)
+    # sort_contours = sort_contours[1:]
+    # print(len(sort_contours))
+
+    # 将所有脊柱块命名
+    new_vertebra = []
     for id in range(len(sort_contours)):
+        # 画出轮廓信息和名字
+        cv.drawContours(im, sort_contours[id]['contour'], -1, green, 5)
         center = (sort_contours[id]['center'][0] - 50, sort_contours[id]['center'][1])
         im = cv.putText(im, str(name_list[id]), center, cv.FONT_HERSHEY_SIMPLEX, 2, blue, 3)
 
-    cal_con = [sort_contours[id_t2], sort_contours[id_t5], sort_contours[id_t10], sort_contours[id_l2]]
-    cal_vertix = []
-    for item in cal_con:
-        cnt = item['contour']
+        # 计算脊柱块的四个点
+        cnt = sort_contours[id]['contour']
         approx = cv.approxPolyDP(cnt, 0.009 * cv.arcLength(cnt, True), True)
         n = approx.ravel()  # 变为一维数组
-        vertexs = []
+        points = []
+        # 都只存四个点
         for i in range(8):
             if i % 2 == 0:
                 point = (n[i], n[i + 1])
-                vertexs.append(point)
-        if len(vertexs) == 4:
-            cal_vertix.append(vertexs)
+                points.append(point)
+        points.sort(key=lambda x: x[1])  # 四个点按照上下排序
+        vertebra = {'name': name_list[id], 'center': sort_contours[id]['center'], 'points': points,
+                    'contour': sort_contours[id]['contour']}
+        new_vertebra.append(vertebra)
 
-    # 需要计算的顶点调整位置
-    for item in cal_vertix:
-        item.sort(key=lambda x: x[1])
-        for id in range(len(item)):
-            cv.putText(im, str(id), item[id], font, 2, yellow, 3)
-    slope_up = []
-    slope_down = []
-    count = 0
-    for item in cal_vertix:
-        up_slope = (item[0][1] - item[1][1]) / (item[0][0] - item[1][0])
-        down_slope = (item[2][1] - item[3][1]) / (item[2][0] - item[3][0])
-        slope_up.append(up_slope)
-        slope_down.append(down_slope)
+    calculate_vertebra = []
+    for item in new_vertebra:
+        if item['name'] == 'T2' or item['name'] == 'T5' or item['name'] == 'T10' or item['name'] == 'L2':
+            points = item['points']
+            up_slope = (points[0][1] - points[1][1]) / (points[0][0] - points[1][0])
+            down_slope = (points[2][1] - points[3][1]) / (points[2][0] - points[3][0])
+            cal = {'name': item['name'], 'up_slope': up_slope, 'down_slope': down_slope, 'points':points}
+            calculate_vertebra.append(cal)
+    k1 = 0
+    k2 = 0
+    k3 = 0
+    k4 = 0
+    putpoint0 = (0, 0)
+    putpoint1 = (0, 0)
+    for item in calculate_vertebra:
+        if item['name'] == 'T2':
+            k1 = item['up_slope']
+            cv.line(im, item['points'][0], item['points'][1], red, 20)
+            putpoint0 = ( item['points'][0][0]-600, item['points'][0][1])
+        if item['name'] == 'T5':
+            k2 = item['down_slope']
+            cv.line(im, item['points'][2], item['points'][3], red, 20)
+        if item['name'] == 'T10':
+            k3 = item['up_slope']
+            cv.line(im, item['points'][0], item['points'][1], green, 20)
+            putpoint1 = (item['points'][0][0] - 600, item['points'][0][1])
+        if item['name'] == 'L2':
+            k4 = item['down_slope']
+            cv.line(im, item['points'][2], item['points'][3], green, 20)
 
-        if count == 0:
-            cv.line(im, item[0], item[1], red, 20)
-        if count == 1:
-            cv.line(im, item[2], item[3], red, 20)
-        if count == 2:
-            cv.line(im, item[0], item[1], blue, 20)
-        if count == 3:
-            cv.line(im, item[2], item[3], blue, 20)
-        count += 1
-    k1 = slope_up[0]
-    k2 = slope_down[1]
-    k3 = slope_up[2]
-    k4 = slope_down[3]
     cobb1 = math.degrees(atan(abs((k2 - k1) / (1 + k1 * k2))))
     cobb2 = math.degrees(atan(abs((k3 - k4) / (1 + k3 * k4))))
-    im = cv.putText(im, str(round(cobb1, 2)), (500, 500), cv.FONT_HERSHEY_SIMPLEX, 4,
+    im = cv.putText(im, str(round(cobb1, 2)),putpoint0, cv.FONT_HERSHEY_SIMPLEX, 4,
                     red, 5)
-    im = cv.putText(im, str(round(cobb2, 2)), (500, 1500), cv.FONT_HERSHEY_SIMPLEX, 4,
-                    blue, 5)
+    im = cv.putText(im, str(round(cobb2, 2)), putpoint1, cv.FONT_HERSHEY_SIMPLEX, 4,
+                    green, 5)
     cv.imwrite(output_file, im)

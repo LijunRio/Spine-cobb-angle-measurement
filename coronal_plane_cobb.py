@@ -16,9 +16,9 @@ yellow = (0, 255, 255)
 red = (0, 0, 255)
 green = (0, 255, 0)
 blue = (255, 0, 0)
-name_list = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10',
-             'T11', 'T12', 'L1', 'L2', 'L3', 'L4', 'L5']
-
+name_list = ['L5', 'L4', 'L3', 'L2', 'L1', 'T12', 'T11', 'T10', 'T9', 'T8', 'T7', 'T6', 'T5', 'T4', 'T3', 'T2', 'T1',
+             'C7', 'C6', 'C5', 'C4', 'C3', 'C2', 'C1']
+print(len(name_list))
 
 def draw_upper_vertebra(vertebrae_information, color):
     for item in vertebrae_information:
@@ -83,13 +83,21 @@ for item in tqdm(img_list):
         rect_list.append(rect)
     rect_list.sort(key=lambda item: item[0][1])  # 按照y值从小到大排序
 
+    mark_rect = rect_list.copy()
+    mark_rect.reverse()
+
     # 椎骨的端点信息,中心点，上端椎斜率，下端椎斜率
     vertebrae_information = []
     turning_location = []
+    for index in range(len(mark_rect)):
+        center = (int(mark_rect[index][0][0] - 50), int(mark_rect[index][0][1]))
+        im = cv.putText(im, str(name_list[index]), center, cv.FONT_HERSHEY_SIMPLEX, 2, blue, 3)
 
     for index in range(len(rect_list)):
-        center = (int(rect_list[index][0][0]-50), int(rect_list[index][0][1]))
-        im = cv.putText(im, str(name_list[index]), center, cv.FONT_HERSHEY_SIMPLEX, 2, blue, 3)
+        center = (int(rect_list[index][0][0] - 50), int(rect_list[index][0][1]))
+        # name_id = abs(index-(len(name_list) - 1))
+        # print(name_id)
+        # im = cv.putText(im, str(name_list[index]), center, cv.FONT_HERSHEY_SIMPLEX, 2, blue, 3)
 
         # 保存椎骨顶点信息
         box = cv.boxPoints(rect_list[index])
@@ -155,7 +163,7 @@ for item in tqdm(img_list):
 
         # 标注出角度
         y = int(slope_decline[end_index]['center'][1] + \
-            (slope_decline[0]['center'][1]-slope_decline[end_index]['center'][1])/2)
+                (slope_decline[0]['center'][1] - slope_decline[end_index]['center'][1]) / 2)
         put_point = (slope_decline[0]['center'][0] - 500, y)
         im = cv.putText(im, str(round(angle, 2)), put_point, cv.FONT_HERSHEY_SIMPLEX, 4,
                         red, 4)
